@@ -5,8 +5,7 @@ import './App.css';
 
 class Bookshelf extends React.Component{
 	render() {
-		if(this.props.books){ 
-				return (
+		return (
 		<React.Fragment> 
 		<h2 className="bookshelf-title">{this.props.bookshelf_title}</h2>  
         <ol className="books-grid">
@@ -14,9 +13,7 @@ class Bookshelf extends React.Component{
 			    	<Book book={the_book} update={this.props.update}></Book>)} 
         </ol> 
         </React.Fragment> 
-      ); 
-  	}
-  		return 
+      );
 	}
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import Bookshelf from './Bookshelf'
 import './App.css'
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import SearchBook from "./SearchBook"
 
 class BooksApp extends React.Component {
@@ -18,8 +18,6 @@ class BooksApp extends React.Component {
   }
 
 
-
-
   updateBook = event => {
     BooksAPI.update({name: event.target.name, id: event.target.id}, event.target.value).then(() => BooksAPI.getAll().then(val => this.setState({
       allBooks: val
@@ -28,11 +26,14 @@ class BooksApp extends React.Component {
   }
 
 
-  updateSearch = event => {
+  updateSearch = event => {    
     if(event.target.value === ""){
+      this.setState({
+        searchedBooks: []
+      })
       return
     }
-    
+
     try{
       BooksAPI.search(event.target.value).then(val => this.setState({
         searchedBooks: val
@@ -42,7 +43,7 @@ class BooksApp extends React.Component {
         searchedBooks: []
       })
     }
-    
+
   }
 
 
@@ -73,6 +74,11 @@ class BooksApp extends React.Component {
             <SearchBook searchedBooks = {this.state.searchedBooks} updateSearch={this.updateSearch} updateBook={this.updateBook}></SearchBook>
           )}/>
 
+          <Link to="/search">
+           <div className="open-search">
+              <button>Add a book</button>
+            </div>
+         </Link>
       </BrowserRouter>
       </div> 
     )
