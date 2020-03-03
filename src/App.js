@@ -27,10 +27,11 @@ class BooksApp extends React.Component {
 
 
   toUpdate = event => {
-    BooksAPI.update({id: event.target.name}, event.target.value)
-    BooksAPI.getAll().then(val => this.setState({
+    console.log(event.target.value)
+    BooksAPI.update({name: event.target.name, id: event.target.id}, event.target.value).then(() => BooksAPI.getAll().then(val => this.setState({
       allBooks: val
-    }))
+    })))
+
   }
 
 
