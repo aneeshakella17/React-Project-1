@@ -2,6 +2,9 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import Bookshelf from './Bookshelf'
 import './App.css'
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import SearchBook from "./SearchBook"
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -12,7 +15,6 @@ class BooksApp extends React.Component {
      */
     selectedValue : "",
     allBooks : [],
-    showSearchPage: false
   }
 
   componentDidMount(){
@@ -34,11 +36,11 @@ class BooksApp extends React.Component {
 
 
   render() {  
-
-    console.log(this.state.allBooks)
     return (
       <div className="app">
-          
+      <BrowserRouter>
+
+        <Route exact path='/' render={() => ( 
           <div className="list-books">
             
             <div className="list-books-title">
@@ -48,14 +50,20 @@ class BooksApp extends React.Component {
 
             <div className="list-books-content">
               
-              <div> 
-                <Bookshelf bookshelf_title = "Currently Reading" books = {this.state.allBooks.filter( (book) => book.shelf === "currentlyReading")} update = {this.toUpdate} > </Bookshelf>
-                <Bookshelf bookshelf_title = "Books I Want To Read" books = {this.state.allBooks.filter( (book) => book.shelf === "wantToRead")}  update = {this.toUpdate}> </Bookshelf>
-                <Bookshelf bookshelf_title = "Books I Have Finished" books = {this.state.allBooks.filter( (book) => book.shelf === "read")} update = {this.toUpdate}> </Bookshelf>
-              </div> 
-
+                <div> 
+                  <Bookshelf bookshelf_title = "Currently Reading" books = {this.state.allBooks.filter( (book) => book.shelf === "currentlyReading")} update = {this.toUpdate} > </Bookshelf>
+                  <Bookshelf bookshelf_title = "Books I Want To Read" books = {this.state.allBooks.filter( (book) => book.shelf === "wantToRead")}  update = {this.toUpdate}> </Bookshelf>
+                  <Bookshelf bookshelf_title = "Books I Have Finished" books = {this.state.allBooks.filter( (book) => book.shelf === "read")} update = {this.toUpdate}> </Bookshelf>
+                </div> 
+            </div>
           </div>
-        </div>
+        )} />
+
+        <Route exact path='/search' render={() => ( 
+          <SearchBook></SearchBook>
+        )} />
+
+      </BrowserRouter>
       </div> 
     )
   }
