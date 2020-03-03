@@ -10,6 +10,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+    selectedValue : "",
     allBooks : [],
     showSearchPage: false
   }
@@ -19,6 +20,18 @@ class BooksApp extends React.Component {
       allBooks: val
     }))
   }
+
+
+
+
+  toUpdate = event => {
+    BooksAPI.update({id: event.target.name}, event.target.value)
+    BooksAPI.getAll().then(val => this.setState({
+      allBooks: val
+    }))
+  }
+
+
 
   render() {  
 
@@ -36,9 +49,9 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               
               <div> 
-                <Bookshelf bookshelf_title = "Currently Reading" books = {this.state.allBooks.filter( (book) => book.shelf === "currentlyReading")} > </Bookshelf>
-                <Bookshelf bookshelf_title = "Books I Have Finished" books = {this.state.allBooks.filter( (book) => book.shelf === "wantToRead")} > </Bookshelf>
-                <Bookshelf bookshelf_title = "Books I Want To Read" books = {this.state.allBooks.filter( (book) => book.shelf === "read")} > </Bookshelf>
+                <Bookshelf bookshelf_title = "Currently Reading" books = {this.state.allBooks.filter( (book) => book.shelf === "currentlyReading")} update = {this.toUpdate} > </Bookshelf>
+                <Bookshelf bookshelf_title = "Books I Want To Read" books = {this.state.allBooks.filter( (book) => book.shelf === "wantToRead")}  update = {this.toUpdate}> </Bookshelf>
+                <Bookshelf bookshelf_title = "Books I Have Finished" books = {this.state.allBooks.filter( (book) => book.shelf === "read")} update = {this.toUpdate}> </Bookshelf>
               </div> 
 
           </div>
