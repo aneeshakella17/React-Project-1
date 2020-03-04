@@ -5,8 +5,8 @@ class Book extends React.Component{
 	render(){
 		var authors = []
 		var thumbnail = ""
-		if('author' in this.props.book){
-			authors = this.props.books.authors
+		if('authors' in this.props.book){
+			authors = this.props.book.authors
 		}
 		if('imageLinks' in this.props.book && 'thumbnail' in this.props.book.imageLinks){
 			thumbnail = `url(${this.props.book.imageLinks.thumbnail})`
