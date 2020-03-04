@@ -9,6 +9,14 @@ class SearchBook extends React.Component{
         searchedBooks = this.props.searchedBooks
       } 
 
+      searchedBooks.forEach(book => {
+      this.props.allBooks.forEach(myBook => {
+        if (myBook.id === book.id) {
+          book.shelf = myBook.shelf;
+        } else { book.shelf = 'none' }
+      });
+    });
+
     return (
           <div className="search-books">
             <div className="search-books-bar">
